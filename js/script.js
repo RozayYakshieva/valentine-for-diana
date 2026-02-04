@@ -1,8 +1,9 @@
-// Простая анимация сердечек при загрузке
 document.addEventListener('DOMContentLoaded', () => {
-  const heartsContainer = document.getElementById('hearts');
+  const noBtn = document.getElementById('noBtn');
+  const yesBtn = document.getElementById('yesBtn');
 
-  // Создаём 20 сердечек
+  // Анимация сердечек (как раньше)
+  const heartsContainer = document.getElementById('hearts');
   for (let i = 0; i < 20; i++) {
     const heart = document.createElement('div');
     heart.innerHTML = '❤️';
@@ -12,12 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     heart.style.top = '-50px';
     heart.style.opacity = Math.random() * 0.7 + 0.3;
     heart.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
-    heart.style.zIndex = '1';
-
     heartsContainer.appendChild(heart);
   }
 
-  // Добавляем CSS-анимацию через JS (чтобы не дублировать в style.css)
   const style = document.createElement('style');
   style.textContent = `
     @keyframes fall {
@@ -27,10 +25,17 @@ document.addEventListener('DOMContentLoaded', () => {
   `;
   document.head.appendChild(style);
 
-  // Обработка кнопки
-  const btn = document.getElementById('loveBtn');
-  btn?.addEventListener('click', () => {
-    alert('Я знал, что ты меня любишь! 💖\nС Днём святого Валентина!');
-    // Можно заменить на confetti или другую анимацию позже
+  // Кнопка "ДА"
+  yesBtn?.addEventListener('click', () => {
+    alert('Ура! Я так и знал! 💖\nС Днём святого Валентина!');
+  });
+
+  // Кнопка "НЕТ" — убегает от курсора
+  noBtn?.addEventListener('mouseover', () => {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
   });
 });
